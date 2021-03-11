@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Xml;
@@ -7,11 +8,7 @@ using System.Xml;
         // Check if country already exist in list.
         public static bool alreadyExists(List<string> countries, string newCountry)
         {
-            foreach (string country in countries)
-            {
-                if (newCountry == country) return true;
-            }
-            return false;
+            return countries.Any(x => x == newCountry);
         }
 
         // Replace '.' with "," in deserialized PRICE value, so it can be parsed to float. 
@@ -20,12 +17,7 @@ using System.Xml;
             string outputString = "";
             foreach (char c in inputString)
             {
-                if (c == '.')
-                {
-                    outputString += ',';
-                }
-                else
-                    outputString += c;
+               outputString += c == '.' ? ',' : c;    
             }
             return outputString;
         }
